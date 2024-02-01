@@ -1,14 +1,58 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { css } from "../../styled-system/css";
 import Button from "../components/Button";
 import Card from "../components/Card";
+import Input from "../components/Form/Input";
+import Select from "../components/Form/Select";
+import Textarea from "../components/Form/Textarea";
 
 export const component = function Settings() {
+	const formSchema = z.object({
+		subject: z.string().min(1, "This field is required"),
+		description: z.string().min(1, "This field is required"),
+		type: z.string(),
+	});
+
+	const { control, handleSubmit } = useForm({
+		mode: "onChange",
+		resolver: zodResolver(formSchema),
+		// defaultValues: {}
+	});
+
+	function onSubmit(data, e) {
+		e.preventDefault();
+
+		console.log(data);
+	}
+
 	return (
 		<div>
 			<Card
 				title="Report an issue"
 				description="What area are you having problems with?"
 			>
-				{/* 
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div className={css({ spaceY: "4" })}>
+						<Select
+							label="Type"
+							name="type"
+							control={control}
+							options={[
+								{ label: "test", value: "test" },
+								{ label: "test2", value: "test2" },
+							]}
+						/>
+						<Input label="Subject" name="subject" control={control} />
+						<Textarea
+							label="Description"
+							name="description"
+							control={control}
+						/>
+					</div>
+
+					{/* 
 				<CardContent className="grid gap-6">
 					<div className="grid grid-cols-2 gap-4">
 						<div className="grid gap-2">
@@ -61,11 +105,11 @@ export const component = function Settings() {
 					<Button>Submit</Button>
 				</CardFooter>*/}
 
-				<p>hello</p>
-				<Card.Footer>
-					<Button variant="ghost">Cancel</Button>
-					<Button>Submit</Button>
-				</Card.Footer>
+					<Card.Footer>
+						<Button variant="ghost">Cancel</Button>
+						<Button type="submit">Submit</Button>
+					</Card.Footer>
+				</form>
 			</Card>
 		</div>
 	);
