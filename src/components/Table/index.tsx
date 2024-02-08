@@ -9,11 +9,15 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import {
+	RxArrowDown,
+	RxArrowUp,
+	RxCaretSort,
 	RxChevronLeft,
 	RxChevronRight,
 	RxDoubleArrowLeft,
 	RxDoubleArrowRight,
 } from "react-icons/rx";
+import styles from "./Table.module.css";
 
 interface TableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
@@ -39,7 +43,7 @@ export function Table<TData, TValue>({
 	});
 
 	return (
-		<div>
+		<div className={styles.table}>
 			<table>
 				<thead>
 					{table.getHeaderGroups().map((headerGroup) => (
@@ -50,7 +54,23 @@ export function Table<TData, TValue>({
 										{header.isPlaceholder
 											? null
 											: flexRender(
-													header.column.columnDef.header,
+													<div>
+														<button
+															type="button"
+															onClick={() => header.column.toggleSorting()}
+														>
+															<span>
+																{header.column.columnDef.header as string}
+															</span>
+															{header.column.getIsSorted() === "desc" ? (
+																<RxArrowDown />
+															) : header.column.getIsSorted() === "asc" ? (
+																<RxArrowUp />
+															) : (
+																<RxCaretSort />
+															)}
+														</button>
+													</div>,
 													header.getContext(),
 											  )}
 									</th>
@@ -77,7 +97,7 @@ export function Table<TData, TValue>({
 					)}
 				</tbody>
 			</table>
-			<div>
+			{/* <div>
 				<div>
 					{table.getFilteredSelectedRowModel().rows.length} of{" "}
 					{table.getFilteredRowModel().rows.length} row(s) selected.
@@ -103,7 +123,7 @@ export function Table<TData, TValue>({
 							onClick={() => table.setPageIndex(0)}
 							disabled={!table.getCanPreviousPage()}
 						>
-							{/* <span className="sr-only">Go to first page</span> */}
+							 <span className="sr-only">Go to first page</span>
 							<RxDoubleArrowLeft />
 						</button>
 						<button
@@ -111,7 +131,7 @@ export function Table<TData, TValue>({
 							onClick={() => table.previousPage()}
 							disabled={!table.getCanPreviousPage()}
 						>
-							{/* <span className="sr-only">Go to previous page</span> */}
+							<span className="sr-only">Go to previous page</span> 
 							<RxChevronLeft />
 						</button>
 						<button
@@ -119,7 +139,7 @@ export function Table<TData, TValue>({
 							onClick={() => table.nextPage()}
 							disabled={!table.getCanNextPage()}
 						>
-							{/* <span className="sr-only">Go to next page</span> */}
+							<span className="sr-only">Go to next page</span>
 							<RxChevronRight />
 						</button>
 						<button
@@ -127,12 +147,12 @@ export function Table<TData, TValue>({
 							onClick={() => table.setPageIndex(table.getPageCount() - 1)}
 							disabled={!table.getCanNextPage()}
 						>
-							{/* <span className="sr-only">Go to last page</span> */}
+							 <span className="sr-only">Go to last page</span>
 							<RxDoubleArrowRight />
 						</button>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

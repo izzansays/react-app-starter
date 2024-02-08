@@ -1,0 +1,61 @@
+.table { 
+  position: relative;
+  width: 100%;
+  overflow: auto;
+
+  table {
+    border-collapse: collapse;
+    border-color: #000;
+  }
+
+  thead & tr {
+    border-bottom: 1px solid;
+  }
+
+  tbody & tr:last-child {
+    border: none
+  }
+
+  tr {
+    border-bottom: 1px solid;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+
+  th {
+    height: 40px;
+    padding: 0px 8px 0px 8px;
+    text-align: left;
+    vertical-align: middle;
+
+    div {
+      display: flex;
+      align-items: center;
+
+      > * + * {
+        padding: 0px 8px 0px 8px;
+      }
+
+      button {
+        margin-left: -8px;
+        height: 32px;
+        border: none;
+        background: none;
+        font-size: 1em;
+
+        svg {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  td {
+    padding: 8px;
+    vertical-align: middle;;
+    /* [&:has([role=checkbox])]:pr-0
+      [&>[role=checkbox]]:translate-y-[2px] */
+  }
+ }

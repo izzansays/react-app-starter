@@ -8,29 +8,11 @@ export const component = function About() {
 		},
 		{
 			accessorKey: "email",
-			header: ({ column }) => {
-				return (
-					<button
-						type="button"
-						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					>
-						Email
-					</button>
-				);
-			},
+			header: "Email",
 		},
 		{
 			accessorKey: "amount",
-			header: ({ column }) => {
-				return (
-					<button
-						type="button"
-						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-					>
-						Amount
-					</button>
-				);
-			},
+			header: "Amount",
 			cell: ({ row }) => {
 				const amount = parseFloat(row.getValue("amount"));
 				const formatted = new Intl.NumberFormat("en-US", {
